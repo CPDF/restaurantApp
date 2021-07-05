@@ -9,7 +9,7 @@ import FoodSearch from './FoodSearch';
 
 const Stack = createStackNavigator();
 
-export default function Home( { navigation }) {
+export default function Home( { navigation } ) {
 
     const onPressHandler_screen_menu = () => {
         navigation.navigate('Menu')
@@ -21,22 +21,23 @@ export default function Home( { navigation }) {
 
     return (
         <View style={styles.container}>
-            <Text style={styles.text}>
-                Welcome - This is the home page
+            <Text style={styles.title}>
+                Welcome to restaurant
             </Text>
             <Pressable
                 onPress = {onPressHandler_screen_menu}
-                style = {({pressed}) => ({backgroundColor: pressed ? '#ddd' : '0f0'})}
+                style = {({pressed}) => (
+                    {backgroundColor: pressed ? '#ddd' : '0f0'}
+                    )}
             >
-                <Text> Go to Menu </Text>
+                <Text style={styles.button}> Go to Menu </Text>
             </Pressable>
             <Pressable
                 onPress = {onPressHandler_screen_search}
                 style = {({pressed}) => ({backgroundColor: pressed ? '#ddd' : '0f0'})}
             >
-                <Text> Go to Search </Text>
+                <Text style={styles.button}> Go to Search </Text>
             </Pressable>
-            
         </View>
     )
   }
@@ -49,6 +50,16 @@ container: {
     justifyContent : 'center',
     alignItems : 'center'
 },
+title: {
+    fontSize: 20,
+    fontWeight : 'bold',
+    margin: 10
+    },
+button: {
+    fontSize: 20,
+    fontWeight : 'bold',
+    margin: 10
+    },
 text: {
     fontSize: 40,
     fontWeight : 'bold',
