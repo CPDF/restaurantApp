@@ -44,7 +44,9 @@ export default function Menu({ navigation }) {
     }, []);
 
     const fetchData = () => {
-      const apiURL = 'http://127.0.0.1:8000/'
+      const apiURL = 'http://10.0.2.2:8000/'
+      //android: const apiURL = 'http://10.0.2.2:8000/'
+      //local web: const apiURL = 'http://127.0.0.1:8000/'
       fetch(apiURL)
       .then((response) => response.json())
       .then((responseJson) => {
