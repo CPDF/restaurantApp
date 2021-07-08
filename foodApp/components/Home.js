@@ -15,10 +15,6 @@ export default function Home( { navigation } ) {
         navigation.navigate('Menu')
     }
 
-    const onPressHandler_screen_search = () => {
-        navigation.navigate('FoodSearch')
-    }
-
     return (
         <View style={styles.container}>
             <Text style={styles.title}>
@@ -31,12 +27,6 @@ export default function Home( { navigation } ) {
                     )}
             >
                 <Text style={styles.button}> Go to Menu </Text>
-            </Pressable>
-            <Pressable
-                onPress = {onPressHandler_screen_search}
-                style = {({pressed}) => ({backgroundColor: pressed ? '#ddd' : '0f0'})}
-            >
-                <Text style={styles.button}> Go to Search </Text>
             </Pressable>
         </View>
     )

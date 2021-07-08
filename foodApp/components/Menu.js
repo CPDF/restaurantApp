@@ -16,20 +16,18 @@ import {
 
 import { createStackNavigator } from "@react-navigation/stack";
 
-import axios from 'axios'
-import filter from 'lodash.filter';
 
-import { mockFoodData } from "./MockData/MockMenu";
-
-const Stack = createStackNavigator();
 
 export default function Menu({ navigation }) {
+
     // isLoading state variable is going to have a boolean value of false by default. Its purpose is to display a loading indicator when the data is being fetched from the API endpoint.
     const [isLoading, setIsLoading] = useState(false);
-    const [foodData, setFoodData] = useState([]);
     const [filteredData, setFilteredData] = useState([]);
     const [masterData, setMasterData] = useState([]);
-    const [search, setSearch] = useState('')
+    const [searchName, setSearchName] = useState('')
+    const [searchIngredients, setSearchIngredients] = useState('')
+
+    //Function needed for the stack navigator
 
     const onPressHandler = () => {
       navigation.navigate("Home");
@@ -42,6 +40,9 @@ export default function Menu({ navigation }) {
 
         }
     }, []);
+
+    // fetchData is a function that is called when the component is mounted.
+    // will fetch data from backend and set the state of the component.
 
     const fetchData = () => {
       const apiURL = 'http://10.0.2.2:8000/'
@@ -57,7 +58,9 @@ export default function Menu({ navigation }) {
       })
      };
 
-     const searchFilter = (text) => {
+
+     //Filter for searching by name
+     const searchFilterByName = (text) => {
        if(text){
          const newData = masterData.filter((item) => {
           const itemData = item.name ? item.name.toUpperCase(): ''.toUpperCase();
@@ -65,12 +68,31 @@ export default function Menu({ navigation }) {
           return itemData.indexOf(textData) > -1;
         })
         setFilteredData(newData);
-        setSearch(text);
+        setSearchIngredients('');
+        setSearchName(text);
        } else {
          setFilteredData(masterData);
-         setSearch(text);
+         setSearchName(text);
        }
      }
+
+     //Filter for searching by ingredients
+
+     const searchFilterByIngredient = (text) => {
+      if(text){
+        const newData = masterData.filter((item) => {
+         const itemData = item.ingredients ? item.ingredients.toUpperCase(): ''.toUpperCase();
+         const textData = text.toUpperCase();
+         return itemData.indexOf(textData) > -1;
+       })
+       setFilteredData(newData);
+       setSearchName('');
+       setSearchIngredients(text);
+      } else {
+        setFilteredData(masterData);
+        setSearchIngredients(text);
+      }
+    }
     
      const ItemView = ({item}) => {
        return (
@@ -83,6 +105,8 @@ export default function Menu({ navigation }) {
               width={200}
               height={150}
               />
+          <Text style={styles.foodIngredients}>Description: {item.food_description.toString()}</Text>
+
 
           </View>
        )
@@ -90,7 +114,6 @@ export default function Menu({ navigation }) {
 
   return (
     <View style={styles.container}>
-        {console.log("API DATA: ", foodData)}
         <SafeAreaView>
         <Text style={styles.text}>Menu</Text>
         <Pressable
@@ -103,10 +126,17 @@ export default function Menu({ navigation }) {
         </Pressable>
         <TextInput
             style={styles.TextInputStyle}
-            value={search}
-            placeholder="Search Here"
+            value={searchName}
+            placeholder="Search Here by Name"
             underlineColorAndroid="transparent"
-            onChangeText={(text)=> searchFilter(text)}
+            onChangeText={(text)=> searchFilterByName(text)}
+          />
+        <TextInput
+            style={styles.TextInputStyle}
+            value={searchIngredients}
+            placeholder="Search Here by Ingredients"
+            underlineColorAndroid="transparent"
+            onChangeText={(text)=> searchFilterByIngredient(text)}
           />
             <FlatList
                 data={filteredData}
