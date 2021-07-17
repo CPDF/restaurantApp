@@ -8,13 +8,18 @@ import {
   TextInput,
   Pressable,
   Image,
+  TouchableOpacity,
 } from "react-native";
+
+import AnimatedLoader from "react-native-animated-loader";
+
+
 
 
 export default function Menu({ navigation }) {
 
   // isLoading state variable is going to have a boolean value of false by default. Its purpose is to display a loading indicator when the data is being fetched from the API endpoint.
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [filteredData, setFilteredData] = useState([]);
   const [masterData, setMasterData] = useState([]);
   const [searchName, setSearchName] = useState('')
@@ -38,7 +43,7 @@ export default function Menu({ navigation }) {
   // will fetch data from backend and set the state of the component.
 
   const fetchData = () => {
-    const apiURL = 'http://10.0.2.2:8000/'
+    const apiURL = 'https://my-restaurant-menu-app-equisde.herokuapp.com/'
     //android: const apiURL = 'http://10.0.2.2:8000/'
     //local web: const apiURL = 'http://127.0.0.1:8000/'
     fetch(apiURL)
@@ -46,6 +51,7 @@ export default function Menu({ navigation }) {
       .then((responseJson) => {
         setFilteredData(responseJson);
         setMasterData(responseJson);
+        setIsLoaded(true);
       }).catch((error) => {
         console.error(error);
       })
@@ -107,6 +113,7 @@ export default function Menu({ navigation }) {
     <View style={styles.container}>
       <SafeAreaView>
         <Text style={styles.mainTitle}>Our Menu</Text>
+        <TouchableOpacity>
         <Pressable
           onPress={onPressHandler}
         >
@@ -116,6 +123,7 @@ export default function Menu({ navigation }) {
             </Text>
           </Text>
         </Pressable>
+        </TouchableOpacity>
         <TextInput
           style={styles.searchInputStyle}
           value={searchName}
@@ -130,11 +138,22 @@ export default function Menu({ navigation }) {
           underlineColorAndroid="transparent"
           onChangeText={(text) => searchFilterByIngredient(text)}
         />
-        <FlatList
+
+        {isLoaded ? <FlatList
           data={filteredData}
           keyExtractor={(item, index) => index.toString()}
           renderItem={ItemView}
-        />
+        /> : <AnimatedLoader
+          visible={true}
+          overlayColor="rgba(255,255,255,0.75)"
+          source={require("../assets/loading-spinner.json")}
+          animationStyle={styles.lottie}
+          speed={1}
+        >
+          <Text>Loading</Text>
+        </AnimatedLoader>}
+
+
       </SafeAreaView>
     </View>
   );
@@ -210,5 +229,9 @@ const styles = StyleSheet.create({
     borderColor: '#009688',
     backgroundColor: 'white',
     alignItems: 'center'
-  }
+  },
+  lottie: {
+    height: 200,
+    width: 200,
+  },
 });

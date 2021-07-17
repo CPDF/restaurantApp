@@ -7,3 +7,8 @@ class DishInfoSerializer(serializers.ModelSerializer):
         model = DishInfo
         #fields = ['id', 'name', 'unit_price', 'ingredients', 'image']
         fields = "__all__"
+
+class PostDishSerilizer(serializers.ModelSerializer):
+    class Meta:
+        model = DishInfo
+        fields =  "__all__"

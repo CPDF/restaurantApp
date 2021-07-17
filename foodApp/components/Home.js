@@ -15,6 +15,10 @@ export default function Home( { navigation } ) {
         navigation.navigate('Menu')
     }
 
+    const onPressHandler_screen_addFood = () => {
+        navigation.navigate('AddFood')
+    }
+
     return (
         <View style={styles.container}>
             <Text style={styles.title}>
@@ -28,7 +32,15 @@ export default function Home( { navigation } ) {
             >
                 <Text style={styles.button}> Go to Menu </Text>
             </Pressable>
-        </View>
+            <Pressable
+                onPress = {onPressHandler_screen_addFood}
+                style = {({pressed}) => (
+                    {backgroundColor: pressed ? '#ddd' : '0f0'}
+                    )}
+            >
+                <Text style={styles.button}> Add a Food item </Text>
+            </Pressable>        
+            </View>
     )
   }
 

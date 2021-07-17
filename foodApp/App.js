@@ -8,6 +8,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './components/Home'
 import Menu from './components/Menu';
 import FoodSearch from './components/FoodSearch';
+import AddFood from './components/AddFood';
+
 
 const Stack = createStackNavigator();
 
@@ -27,6 +29,10 @@ export default function App() {
           <Stack.Screen
           name = "Home"
           component = {Home}
+        />
+        <Stack.Screen
+          name = "AddFood"
+          component = {AddFood}
         />
       </Stack.Navigator>
     </NavigationContainer>
