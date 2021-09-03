@@ -6,7 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
 
-export default function FoodSearch( { navigation } ) {
+export default function TipView( { navigation } ) {
     const onPressHandler = () => {
         navigation.navigate('Home')
     }

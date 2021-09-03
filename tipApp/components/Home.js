@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, SafeAreaView, Alert, Button, Pressable } from '
 import { createStackNavigator } from '@react-navigation/stack';
 
 import Menu from './Menu';
-import FoodSearch from './FoodSearch';
+import TipView from './TipView';
 
 
 const Stack = createStackNavigator();
@@ -15,8 +15,8 @@ export default function Home( { navigation } ) {
         navigation.navigate('Menu')
     }
 
-    const onPressHandler_screen_addFood = () => {
-        navigation.navigate('AddFood')
+    const onPressHandler_screen_AddTip = () => {
+        navigation.navigate('AddTip')
     }
 
     return (
@@ -33,7 +33,7 @@ export default function Home( { navigation } ) {
                 <Text style={styles.button}> Go to Menu </Text>
             </Pressable>
             <Pressable
-                onPress = {onPressHandler_screen_addFood}
+                onPress = {onPressHandler_screen_AddTip}
                 style = {({pressed}) => (
                     {backgroundColor: pressed ? '#ddd' : '0f0'}
                     )}

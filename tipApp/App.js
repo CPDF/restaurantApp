@@ -7,8 +7,8 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import Home from './components/Home'
 import Menu from './components/Menu';
-import FoodSearch from './components/FoodSearch';
-import AddFood from './components/AddFood';
+import TipView from './components/TipView';
+import AddTip from './components/AddTip';
 
 
 const Stack = createStackNavigator();
@@ -23,16 +23,16 @@ export default function App() {
           styles = {styles.text}
         />
         <Stack.Screen
-          name = "FoodSearch"
-          component = {FoodSearch}
+          name = "TipView"
+          component = {TipView}
         />
           <Stack.Screen
           name = "Home"
           component = {Home}
         />
         <Stack.Screen
-          name = "AddFood"
-          component = {AddFood}
+          name = "AddTip"
+          component = {AddTip}
         />
       </Stack.Navigator>
     </NavigationContainer>

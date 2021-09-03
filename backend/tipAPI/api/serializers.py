@@ -1,14 +1,14 @@
 from rest_framework import serializers
-from foodAPI.models import DishInfo
+from tipAPI.models import TipInfo
 from django import forms
 
-class DishInfoSerializer(serializers.ModelSerializer):
+class TipInfoSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DishInfo
+        model = TipInfo
         #fields = ['id', 'name', 'unit_price', 'ingredients', 'image']
         fields = "__all__"
 
 class PostDishSerilizer(serializers.ModelSerializer):
     class Meta:
-        model = DishInfo
+        model = TipInfo
         fields =  "__all__"

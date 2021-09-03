@@ -22,7 +22,7 @@ import {
 
 import axios from "axios";
 
-export default function AddFood(){
+export default function AddTip({ navigation}){
     const [name, setName] = useState('');
     const [unitPrice, setUnitPrice] = useState('');
     const [image, setImage] = useState('');
@@ -50,10 +50,11 @@ export default function AddFood(){
       });
     };
 
-    const kekHard = () => {
-      console.log("kek")
-    }
+    //Function needed for the stack navigator
 
+    const onPressHandler = () => {
+      navigation.navigate("Home");
+    };
 
   return (
     <View style={styles.container}>
@@ -89,21 +90,31 @@ export default function AddFood(){
           style={styles.searchInputStyle}
           value={ingredients}
           placeholder="Insert Ingredients"
+          numberOfLines = {2}
           underlineColorAndroid="transparent"
           onChangeText={(text) => { setIngredients(text); }}
       />
 
       <TextInput
-          style={styles.searchInputStyle}
+          style={styles.searchInputStyleDescription}
           value={foodDescription}
+          numberOfLines={10}
+          multiline={true}
           placeholder="Insert Food Description"
           underlineColorAndroid="transparent"
           onChangeText={(text) => { setFoodDescription(text); }}
       />
 
+
         <Button
           onPress={makeAxiosPostRequest}
           title="Add"
+          color="#841584"
+          accessibilityLabel="Learn more about this purple button"
+        />
+        <Button
+          onPress={onPressHandler}
+          title="Go to main"
           color="#841584"
           accessibilityLabel="Learn more about this purple button"
         />
@@ -120,6 +131,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  textAreaContainer: {
+    marginTop: 20,
+    borderWidth: 1,
+    padding: 5
+  },
   foodImage: {
     width: 200,
     height: 200,
@@ -135,7 +151,7 @@ const styles = StyleSheet.create({
     color: '#333333',
     flex: 1,
   },
-  addFoodButton: {
+  AddTipButton: {
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'center',
@@ -143,7 +159,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#3B5998',
     padding: 10,
   },
-  addFoodButtonText: {
+  AddTipButtonText: {
     color: '#ffffff',
     fontSize: 20,
   },
@@ -156,6 +172,17 @@ const styles = StyleSheet.create({
     borderColor: '#009688',
     backgroundColor: 'white',
     alignItems: 'center'
+  },
+  searchInputStyleDescription: {
+    height: 100,
+    width: 300,
+    borderWidth: 1,
+    paddingLeft: 20,
+    margin: 5,
+    borderColor: '#009688',
+    backgroundColor: 'white',
+    alignItems: 'center',
+    justifyContent: "flex-start"
   },
   addButton: {
     marginTop: 10,
